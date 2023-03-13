@@ -11,12 +11,6 @@ __global__ void vector_add(float *c, float *a, float *b, int n) {
     }
 }
 
-// void cpu_vector_add(float *c, float *a, float *b, int n) {
-//     for(int i = 0; i < n; i++){
-//         c[i] = a[i] + b[i];
-//     }
-// }
-
 int main(){
     float *a, *b, *c;
 
@@ -55,19 +49,6 @@ int main(){
     // Compute time elapse on GPU computing
     hipEventElapsedTime(&gpu_elapsed_time_ms, start, stop);
     printf("Time elapsed on vector addition on GPU: %f ms.\n\n", gpu_elapsed_time_ms);
-
-    // // Start the CPU version
-    // hipEventRecord(start, 0);
-
-    // cpu_vector_add(c, a, b, N);
-
-    // // Time counting terminate
-    // hipEventRecord(stop, 0);
-    // hipEventSynchronize(stop);
-
-    // // compute time elapse on CPU computing
-    // hipEventElapsedTime(&cpu_elapsed_time_ms, start, stop);
-    // printf("Time elapsed on vector addition on CPU: %f ms.\n\n", cpu_elapsed_time_ms);
     
     printf("The first index of the resulting array, c[0] = %f\n", c[0]);
 

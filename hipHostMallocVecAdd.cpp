@@ -37,15 +37,15 @@ int main(){
     hipMalloc((void**)&d_b, sizeof(float) * N);
     hipMalloc((void**)&d_c, sizeof(float) * N);
 
-    // float gpu_elapsed_time_ms, cpu_elapsed_time_ms;
+    float gpu_elapsed_time_ms;
 
     // // Some events to count the execution time
-    // hipEvent_t start, stop;
-    // hipEventCreate(&start);
-    // hipEventCreate(&stop);
+    hipEvent_t start, stop;
+    hipEventCreate(&start);
+    hipEventCreate(&stop);
 
     // // Start to count execution time of GPU version
-    // hipEventRecord(start, 0);
+    hipEventRecord(start, 0);
 
     // Transfer data from host to device memory
     hipMemcpy(d_a, a, sizeof(float) * N, hipMemcpyHostToDevice);
@@ -62,14 +62,14 @@ int main(){
     hipMemcpy(c, d_c, sizeof(float) * N, hipMemcpyDeviceToHost);
 
     // // Time counting terminate
-    // hipEventRecord(stop, 0);
-    // hipEventSynchronize(stop);
+    hipEventRecord(stop, 0);
+    hipEventSynchronize(stop);
 
     // // Compute time elapse on GPU computing
-    // hipEventElapsedTime(&gpu_elapsed_time_ms, start, stop);
-    // printf("Time elapsed on vector addition on GPU: %f ms.\n\n", gpu_elapsed_time_ms);
+    hipEventElapsedTime(&gpu_elapsed_time_ms, start, stop);
+    printf("Time elapsed on vector addition on GPU: %f ms.\n\n", gpu_elapsed_time_ms);
 
-    // printf("The first index of the resulting array, c[0] = %f\n", c[0]);
+    printf("The first index of the resulting array, c[0] = %f\n", c[0]);
 
     // Deallocate device memory
     hipFree(d_a);
