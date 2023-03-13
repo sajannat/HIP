@@ -1,5 +1,4 @@
 #include <hip/hip_runtime.h>
-#include "rocm_smi/rocm_smi.h"
 
 #define HIP_ASSERT(x) (assert((x)==hipSuccess))
 
